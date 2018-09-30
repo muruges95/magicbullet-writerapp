@@ -44,7 +44,7 @@ public class MainActivity extends Activity
     }
 
 
-    private  void updateTextViews() {
+    private void updateTextViews() {
         txtMessagesToSend.setText("Messages To Send:\n");
         //Populate Our list of messages we want to send
         if(messagesToSendArray.size() > 0) {
@@ -64,24 +64,24 @@ public class MainActivity extends Activity
         }
     }
 
-        @Override
-        public void onNdefPushComplete(NfcEvent event) {
-            //This is called when the system detects that our NdefMessage was
-            //Successfully sent.
-            messagesToSendArray.clear();
-        }
+    @Override
+    public void onNdefPushComplete(NfcEvent event) {
+        //This is called when the system detects that our NdefMessage was
+        //Successfully sent.
+        messagesToSendArray.clear();
+    }
 
-        @Override
-        public NdefMessage createNdefMessage(NfcEvent event) {
-            //This will be called when another NFC capable device is detected.
-            if (messagesToSendArray.size() == 0) {
-                return null;
-            }
-            //We'll write the createRecords() method in just a moment
-            NdefRecord[] recordsToAttach = createRecords();
-            //When creating an NdefMessage we need to provide an NdefRecord[]
-            return new NdefMessage(recordsToAttach);
+    @Override
+    public NdefMessage createNdefMessage(NfcEvent event) {
+        //This will be called when another NFC capable device is detected.
+        if (messagesToSendArray.size() == 0) {
+            return null;
         }
+        //We'll write the createRecords() method in just a moment
+        NdefRecord[] recordsToAttach = createRecords();
+        //When creating an NdefMessage we need to provide an NdefRecord[]
+        return new NdefMessage(recordsToAttach);
+    }
 
     public NdefRecord[] createRecords() {
         NdefRecord[] records = new NdefRecord[messagesToSendArray.size() + 1];
